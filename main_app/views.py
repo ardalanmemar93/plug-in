@@ -7,6 +7,32 @@ from .forms import QuestionForm, CommentForm
 def home(request):
     return render(request, 'home.html')
 
+def create_question(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user
+            question.save()
+            return redirect(question)
+    else:
+        form = QuestionForm()
+    return render(request, 'create_question.html', {'form': form})
+
+def create_comment(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.question = question
+            comment.save()
+            return redirect(question)
+    else:
+        form = CommentForm()
+    return render(request, 'create_comment.html', {'form': form})
+
 def edit_question(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.user == question.author:
