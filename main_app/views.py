@@ -19,6 +19,26 @@ def create_question(request):
         form = QuestionForm()
     return render(request, 'create_question.html', {'form': form})
 
+
+def edit_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.author:
+        if request.method == 'POST':
+            form = QuestionForm(request.POST, instance=question)
+            if form.is_valid():
+                form.save()
+                return redirect('question_detail', question_id=question.id)
+        else:
+            form = QuestionForm(instance=question)
+        return render(request, 'edit_question.html', {'form': form})
+
+def delete_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.author:
+        question.delete()
+        return redirect('question_list')
+
+
 def create_comment(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
@@ -33,17 +53,6 @@ def create_comment(request, question_id):
         form = CommentForm()
     return render(request, 'create_comment.html', {'form': form})
 
-def edit_question(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    if request.user == question.author:
-        if request.method == 'POST':
-            form = QuestionForm(request.POST, instance=question)
-            if form.is_valid():
-                form.save()
-                return redirect('question_detail', question_id=question.id)
-        else:
-            form = QuestionForm(instance=question)
-        return render(request, 'edit_question.html', {'form': form})
 
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
@@ -58,11 +67,6 @@ def edit_comment(request, comment_id):
         return render(request, 'edit_comment.html', {'form': form})
     
 
-def delete_question(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    if request.user == question.author:
-        question.delete()
-        return redirect('question_list')
 
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
