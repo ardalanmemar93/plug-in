@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
+<h1>Question Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ question.title }}</span>
+    <p>Content: {{ question.content|linebreaks }}</p>
+    <p>Author: {{ question.author.username }}</p>
+    <p>Created: {{ question.created_at }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'home' %}" class="btn">Back to Home</a>
+
+    {% if user.is_authenticated and user == question.author %}
+    <a href="{% url 'question_update' question.id %}" class="btn">Edit</a>
+    <a href="{% url 'question_delete' question.id %}" class="btn">Delete</a>
+  {% endif %}
+  </div>
+</div>
 
 {% endblock %}
