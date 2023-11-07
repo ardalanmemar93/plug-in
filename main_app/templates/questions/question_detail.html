@@ -20,4 +20,34 @@
   </div>
 </div>
 
+<div class="comments-section">
+
+    <!-- Check if the user is authenticated before showing the comment form -->
+    {% if user.is_authenticated %}
+      <h3>Add a Comment</h3>
+  
+      <!-- Comment form -->
+      <form method="post" action="{% url 'question_detail' question_id=question.id %}">
+
+
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Add Comment" class="btn">
+      </form>
+    {% else %}
+      <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+    {% endif %}
+  </div>
+
+   <!-- Display existing comments -->
+   <h2>Comments</h2>
+   <ul>
+    {% for comment in comments %}
+      <li>
+        <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+      </li>
+    {% endfor %}
+  </ul>
+
 {% endblock %}

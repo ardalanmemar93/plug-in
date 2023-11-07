@@ -22,7 +22,12 @@ class Comment(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # def __str__(self):
+    #     return f"Comment by {self.author} on {self.question.title}"
+    
     def __str__(self):
-        return f"Comment by {self.author} on {self.question.title}"
+        # Nice method for obtaining the friendly value of a Field.choice
+        return f"{self.get_comment_display()} on {self.created_at}"
+    
     
     
