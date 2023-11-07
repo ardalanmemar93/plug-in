@@ -12,16 +12,20 @@ from .forms import QuestionForm, CommentForm
 # Create your views here.
 
 def home(request):
-    return render(request, 'home.html')
-
-@login_required
-def question_list(request):
     questions = Question.objects.all()
-    return render(request, 'questions/question_list.html', {
-        'questions': questions
-    })
+    return render(request, 'home.html', {'questions': questions})
 
-@login_required
+def about(request):
+  return render(request, 'about.html')
+
+# @login_required
+# def question_list(request):
+#     questions = Question.objects.all()
+#     return render(request, 'questions/question_list.html', {
+#         'questions': questions
+#     })
+
+# @login_required
 def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     comments = Comment.objects.filter(question=question)
