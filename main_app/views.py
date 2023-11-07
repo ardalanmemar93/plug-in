@@ -1,76 +1,69 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+
 from .models import Question, Comment
 from .forms import QuestionForm, CommentForm
 
 # Create your views here.
+
 def home(request):
     return render(request, 'home.html')
 
-def create_question(request):
-    if request.method == 'POST':
-        form = QuestionForm(request.POST)
-        if form.is_valid():
-            question = form.save(commit=False)
-            question.author = request.user
-            question.save()
-            return redirect(question)
-    else:
-        form = QuestionForm()
-    return render(request, 'create_question.html', {'form': form})
+@login_required
+def question_list(request):
+    questions = Question.objects.all()
+    return render(request, 'questions/question_list.html', {
+        'questions': questions
+    })
 
-
-def edit_question(request, question_id):
+@login_required
+def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    if request.user == question.author:
-        if request.method == 'POST':
-            form = QuestionForm(request.POST, instance=question)
-            if form.is_valid():
-                form.save()
-                return redirect('question_detail', question_id=question.id)
-        else:
-            form = QuestionForm(instance=question)
-        return render(request, 'edit_question.html', {'form': form})
+    comments = Comment.objects.filter(question=question)
+    return render(request, 'questions/question_detail.html', {
+        'question': question,
+        'comments': comments
+    })
 
-def delete_question(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    if request.user == question.author:
-        question.delete()
-        return redirect('question_list')
+class QuestionCreate(LoginRequiredMixin, CreateView):
+    model = Question
+    form_class = QuestionForm
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-def create_comment(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.question = question
-            comment.save()
-            return redirect(question)
-    else:
-        form = CommentForm()
-    return render(request, 'create_comment.html', {'form': form})
+class QuestionUpdate(LoginRequiredMixin, UpdateView):
+    model = Question
+    form_class = QuestionForm
 
+class QuestionDelete(LoginRequiredMixin, DeleteView):
+    model = Question
+    success_url = '/questions'
 
-def edit_comment(request, comment_id):
-    comment = get_object_or_404(Comment, pk=comment_id)
-    if request.user == comment.author:
-        if request.method == 'POST':
-            form = CommentForm(request.POST, instance=comment)
-            if form.is_valid():
-                form.save()
-                return redirect('question_detail', question_id=comment.question.id)
-        else:
-            form = CommentForm(instance=comment)
-        return render(request, 'edit_comment.html', {'form': form})
-    
+class CommentCreate(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = '__all__'
 
+    def form_valid(self, form):
+        question = get_object_or_404(Question, pk=self.kwargs['question_id'])
+        form.instance.author = self.request.user
+        form.instance.question = question
+        return super().form_valid(form)
 
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(Comment, pk=comment_id)
-    if request.user == comment.author:
-        question_id = comment.question.id
-        comment.delete()
-        return redirect('question_detail', question_id=question_id)
+    def get_success_url(self):
+        return reverse('question_detail', kwargs={'question_id': self.kwargs['question_id']})
+
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+    model = Comment
+    template_name = 'comment/comment_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse('question_detail', kwargs={'question_id': self.object.question.id})
