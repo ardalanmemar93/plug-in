@@ -40,6 +40,18 @@
             <li><a href="{% url 'signup' %}">Sign Up</a></li>
             <li><a href="{% url 'login' %}">Log In</a></li>
             {% endif %}
+            {% if user.is_authenticated %}
+            <li>Profile</li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            {% endif %}
+            {% comment %} <li><a href="{% url 'comment_create' question_id=question.id %}">Create a Comment</a></li>
+            <li><a href="{% url 'edit_question' question_id=question.id %}">Edit Question</a></li>
+            <li><a href="{% url 'edit_comment' comment_id=comment.id %}">Edit Comment</a></li>
+            <li><a href="{% url 'delete_question' question_id=question.id %}">Delete Question</a></li>
+            <li><a href="{% url 'delete_comment' comment_id=comment.id %}">Delete Comment</a></li> {% endcomment %}
           </ul>
         </div>
       </nav>
