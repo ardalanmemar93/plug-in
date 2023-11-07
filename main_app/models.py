@@ -17,7 +17,7 @@ class Question(models.Model):
     
 
 class Comment(models.Model):
-    content = models.TextField()
+    content = models.TextField(max_length=250)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
