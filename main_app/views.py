@@ -132,6 +132,7 @@ def edit_comment(request, comment_id):
         
         return render(request, 'main_app/comment_form.html', {'form': form, 'comment': comment})
     else:
+        #error handling
         return HttpResponseForbidden("You are not allowed to edit this comment.")
     
 @login_required
