@@ -13,6 +13,6 @@ urlpatterns = [
     path('questions/<int:question_id>/comment_create/', views.add_comment, name='comment_create'),
     path('comment/edit/<int:comment_id>/', views.edit_comment, name='comment_edit'),
     path('comment/delete/<int:comment_id>/', views.delete_comment, name='comment_delete'),
-    
-    path('accounts/signup', views.signup, name='signup')
+    path('questions/<int:question_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('accounts/signup', views.signup, name='signup'),
     ]

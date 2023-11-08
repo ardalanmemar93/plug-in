@@ -30,4 +30,10 @@ class Comment(models.Model):
         return f"{self.get_comment_display()} on {self.created_at}"
     
     
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for question_id: {self.question_id} @{self.url}"
     
