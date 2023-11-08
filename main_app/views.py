@@ -31,26 +31,58 @@ def question_list(request):
         'questions': questions
     })
 
+# # @login_required
+# def question_detail(request, question_id):
+#         question = get_object_or_404(Question, pk=question_id)
+#         comments = Comment.objects.filter(question=question)
+#         # comment = get_object_or_404(Comment, pk=comment_id)
+        
+#         comment_form = CommentForm()
+#         if request.method == 'POST':
+#             form = CommentForm(request.POST)
+#             print(form)
+#             if form.is_valid():
+#                 form.save()
+#                 return redirect('question_detail', question_id=question.id)
+#         else:
+#             form = CommentForm()
+#         return render(request, 'questions/question_detail.html', {
+#             'question': question,
+#             'comments': comments, 
+#             'comment_form': comment_form 
+#     })
+
+
 # @login_required
 def question_detail(request, question_id):
-        question = get_object_or_404(Question, pk=question_id)
-        comments = Comment.objects.filter(question=question)
-        # comment = get_object_or_404(Comment, pk=comment_id)
-        
+    question = get_object_or_404(Question, pk=question_id)
+    comments = Comment.objects.filter(question=question)
+    
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            if 'comment_id' in request.POST: 
+                comment_id = request.POST['comment_id']
+                existing_comment = get_object_or_404(Comment, pk=comment_id)
+                if existing_comment.author == request.user:
+                    existing_comment.content = comment_form.cleaned_data['content']
+                    existing_comment.save()
+            else:
+                new_comment = comment_form.save(commit=False)
+                new_comment.author = request.user
+                new_comment.question = question
+                new_comment.save()
+            return redirect('question_detail', question_id=question.id)
+    else:
         comment_form = CommentForm()
-        if request.method == 'POST':
-            form = CommentForm(request.POST)
-            print(form)
-            if form.is_valid():
-                form.save()
-                return redirect('question_detail', question_id=question.id)
-        else:
-            form = CommentForm()
-        return render(request, 'questions/question_detail.html', {
-            'question': question,
-            'comments': comments, 
-            'comment_form': comment_form 
+    
+    return render(request, 'questions/question_detail.html', {
+        'question': question,
+        'comments': comments,
+        'comment_form': comment_form
     })
+
+
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
     model = Question
@@ -82,15 +114,26 @@ def add_comment(request, question_id):
 
 
 
+
+
 @login_required
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    form = CommentForm(instance=comment)
+
+    # Check if the user is the author of the comment
     if request.user == comment.author:
+        if request.method == 'POST':
+            form = CommentForm(request.POST, instance=comment)
+            if form.is_valid():
+                form.save()
+                return redirect('question_detail', question_id=comment.question.id)
+        else:
+            form = CommentForm(instance=comment)
+        
         return render(request, 'main_app/comment_form.html', {'form': form, 'comment': comment})
     else:
-        pass
-
+        #error handling
+        return HttpResponseForbidden("You are not allowed to edit this comment.")
     
 @login_required
 def delete_comment(request, comment_id):
