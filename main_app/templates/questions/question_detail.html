@@ -16,44 +16,41 @@
     {% if user.is_authenticated and user == question.author %}
     <a href="{% url 'question_update' question.id %}" class="btn">Edit</a>
     <a href="{% url 'question_delete' question.id %}" class="btn">Delete</a>
-  {% endif %}
+    {% endif %}
   </div>
 </div>
 
 <div class="comments-section">
+  <!-- Check if the user is authenticated before showing the comment form -->
+  {% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
 
-    <!-- Check if the user is authenticated before showing the comment form -->
-    {% if user.is_authenticated %}
-      <h3>Add a Comment</h3>
-  
-      <!-- Comment form -->
-      <form method="post" action="{% url 'comment_create' question_id=question.id %}">
+    <!-- Comment form -->
+    <form method="post" action="{% url 'comment_create' question_id=question.id %}">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <input type="submit" value="Add Comment" class="btn">
+    </form>
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+  {% endif %}
+</div>
 
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <input type="submit" value="Add Comment" class="btn">
-      </form>
-    {% else %}
-      <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
-    {% endif %}
-  </div>
-
-   <!-- Display existing comments -->
-   <h2>Comments</h2>
-   <ul>
-    {% for comment in comments %}
-      <li>
-        <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
-        
-        <!-- Only show Edit and Delete buttons to the comment's author -->
-        {% if user.is_authenticated and user == comment.author %}
-          <a href="{% url 'comment_edit' comment.id %}" class="btn">Edit</a>
-   
-          <a href="{% url 'comment_delete' comment.id %}" class="btn">Delete</a>
-   
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+<!-- Display existing comments -->
+<h2>Comments</h2>
+<ul>
+  {% for comment in comments %}
+    <li>
+      <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
+      
+      <!-- Only show Edit and Delete buttons to the comment's author -->
+      {% if user.is_authenticated and user == comment.author %}
+        <a href="{% url 'comment_edit' comment.id %}" class="btn">Edit</a>
+        <a href="{% url 'comment_delete' comment.id %}" class="btn">Delete</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+</div>
 
 {% endblock %}
