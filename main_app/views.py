@@ -31,27 +31,6 @@ def question_list(request):
         'questions': questions
     })
 
-# # @login_required
-# def question_detail(request, question_id):
-#         question = get_object_or_404(Question, pk=question_id)
-#         comments = Comment.objects.filter(question=question)
-#         # comment = get_object_or_404(Comment, pk=comment_id)
-        
-#         comment_form = CommentForm()
-#         if request.method == 'POST':
-#             form = CommentForm(request.POST)
-#             print(form)
-#             if form.is_valid():
-#                 form.save()
-#                 return redirect('question_detail', question_id=question.id)
-#         else:
-#             form = CommentForm()
-#         return render(request, 'questions/question_detail.html', {
-#             'question': question,
-#             'comments': comments, 
-#             'comment_form': comment_form 
-#     })
-
 
 # @login_required
 def question_detail(request, question_id):
@@ -61,10 +40,12 @@ def question_detail(request, question_id):
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
-            if 'comment_id' in request.POST: 
+            if 'comment_id' in request.POST:  # Check if 'comment_id' is in the POST data
+                # This means it's an edit
                 comment_id = request.POST['comment_id']
                 existing_comment = get_object_or_404(Comment, pk=comment_id)
                 if existing_comment.author == request.user:
+                    # Check if the user is the author of the existing comment
                     existing_comment.content = comment_form.cleaned_data['content']
                     existing_comment.save()
             else:
@@ -129,11 +110,12 @@ def edit_comment(request, comment_id):
                 return redirect('question_detail', question_id=comment.question.id)
         else:
             form = CommentForm(instance=comment)
-        
+
         return render(request, 'main_app/comment_form.html', {'form': form, 'comment': comment})
     else:
-        #error handling
         return HttpResponseForbidden("You are not allowed to edit this comment.")
+
+    
     
 @login_required
 def delete_comment(request, comment_id):
