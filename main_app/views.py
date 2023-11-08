@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseForbidden
 
 from .models import Question, Comment
 from .forms import QuestionForm, CommentForm
@@ -34,9 +35,12 @@ def question_list(request):
 def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     comments = Comment.objects.filter(question=question)
+    comment_form = CommentForm()
     return render(request, 'questions/question_detail.html', {
         'question': question,
-        'comments': comments
+        'comments': comments, 
+        'comment_form': comment_form
+        
     })
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
@@ -81,15 +85,29 @@ class QuestionDelete(LoginRequiredMixin, DeleteView):
 #         return reverse('question_detail', kwargs={'question_id': self.object.question.id})
     
     
+# @login_required
+# def add_comment(request, question_id):
+#   form = CommentForm(request.POST)
+#   if form.is_valid():
+#     new_comment = form.save(commit=False)
+#     new_comment.author = request.user  
+#     new_comment.question_id = question_id
+#     new_comment.save()
+#   return redirect('question_detail', question_id=question_id)
+
+
 @login_required
 def add_comment(request, question_id):
-  form = CommentForm(request.POST)
-  if form.is_valid():
-    new_comment = form.save(commit=False)
-    new_comment.author = request.user  
-    new_comment.question_id = question_id
-    new_comment.save()
-  return redirect('question_detail', question_id=question_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.question_id = question_id
+            new_comment.save()
+    return redirect('question_detail', question_id=question_id)
+
+
 
 @login_required
 def edit_comment(request, comment_id):
@@ -99,10 +117,10 @@ def edit_comment(request, comment_id):
             form = CommentForm(request.POST, isntance=comment)
             if form.is_valid():
                 form.save()
-                return redirect('question_detail', question_id=comment.question_id)
+                return redirect('question_detail', question_id=comment.question.id)
         else:
             form = CommentForm(instance=comment)
-        return render(request, 'comment/comment_form.html', {'form': form, 'comment': comment})
+        return render(request, 'main_app/comment_form.html', {'form': form, 'comment': comment})
     else:
         pass
     
@@ -117,7 +135,7 @@ def delete_comment(request, comment_id):
             return redirect('question_detail', question_id=comment.question_id)
         return render(request, 'delete_comment.html', {'comment': comment})
     else:
-        pass
+        return HttpResponseForbidden("You are not allowed to delete this comment.")
    
     
 

@@ -17,8 +17,10 @@ urlpatterns = [
     
     #comment methhod
     path('questions/<int:question_id>/comment_create/', views.add_comment, name='comment_create'),
-    path('questions/<int:question_id>/delete_comment/', views.delete_comment, name='delete_comment'),
-    path('questions/<int:question_id>/edit_comment/', views.edit_comment, name='edit_comment'),
+    # path('questions/<int:question_id>/delete_comment/', views.delete_comment, name='delete_comment'),
+    # path('questions/<int:question_id>/edit_comment/', views.edit_comment, name='edit_comment'),
+       path('comment/edit/<int:comment_id>/', views.edit_comment, name='comment_edit'),
+        path('comment/delete/<int:comment_id>/', views.delete_comment, name='comment_delete'),
     
     path('accounts/signup', views.signup, name='signup')
     ]
