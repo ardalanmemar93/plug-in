@@ -1,3 +1,6 @@
+import os
+import uuid
+import boto3
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -7,7 +10,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseForbidden
 
-from .models import Question, Comment
+from .models import Question, Comment, Photo
 from .forms import QuestionForm, CommentForm
 
 # Create your views here.
@@ -128,7 +131,21 @@ def delete_comment(request, comment_id):
     else:
         return HttpResponseForbidden("You are not allowed to delete this comment.")
    
-    
+@login_required
+def add_photo(request, question_id):
+    photo_file = request.FILES.get('photo_file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            bucket = os.environ['S3_BUCKET']
+            s3.upload_fileobj(photo_file, bucket, key)
+            url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            Photo.objects.create(url=url, question_id=question_id)
+        except Exception as e:
+            print('An error occurred uploading a file to S3')
+            print(e)
+    return redirect('question_detail', question_id=question_id)
 
 def signup(request):
     error_message = ''
