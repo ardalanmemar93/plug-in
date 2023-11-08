@@ -10,17 +10,9 @@ urlpatterns = [
     path('questions/create/', views.QuestionCreate.as_view(), name='question_create'),
     path('question/<int:pk>/update/', views.QuestionUpdate.as_view(), name='question_update'),
     path('question/<int:pk>/delete/', views.QuestionDelete.as_view(), name='question_delete'),
-    # path('question/<int:question_id>/comment/create/', views.CommentCreate.as_view(), name='comment_create'),
-    # path('comment/<int:pk>/update/', views.CommentUpdate.as_view(), name='comment_update'),
-    # path('comment/<int:pk>/delete/', views.CommentDelete.as_view(), name='comment_delete'),
-    # path('questions/<int:question_id>/add_comment/', views.add_comment, name='add_comment'),
-    
-    #comment methhod
     path('questions/<int:question_id>/comment_create/', views.add_comment, name='comment_create'),
-    # path('questions/<int:question_id>/delete_comment/', views.delete_comment, name='delete_comment'),
-    # path('questions/<int:question_id>/edit_comment/', views.edit_comment, name='edit_comment'),
-       path('comment/edit/<int:comment_id>/', views.edit_comment, name='comment_edit'),
-        path('comment/delete/<int:comment_id>/', views.delete_comment, name='comment_delete'),
+    path('comment/edit/<int:comment_id>/', views.edit_comment, name='comment_edit'),
+    path('comment/delete/<int:comment_id>/', views.delete_comment, name='comment_delete'),
     
     path('accounts/signup', views.signup, name='signup')
     ]

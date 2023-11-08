@@ -33,14 +33,23 @@ def question_list(request):
 
 # @login_required
 def question_detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    comments = Comment.objects.filter(question=question)
-    comment_form = CommentForm()
-    return render(request, 'questions/question_detail.html', {
-        'question': question,
-        'comments': comments, 
-        'comment_form': comment_form
+        question = get_object_or_404(Question, pk=question_id)
+        comments = Comment.objects.filter(question=question)
+        # comment = get_object_or_404(Comment, pk=comment_id)
         
+        comment_form = CommentForm()
+        if request.method == 'POST':
+            form = CommentForm(request.POST)
+            print(form)
+            if form.is_valid():
+                form.save()
+                return redirect('question_detail', question_id=question.id)
+        else:
+            form = CommentForm()
+        return render(request, 'questions/question_detail.html', {
+            'question': question,
+            'comments': comments, 
+            'comment_form': comment_form 
     })
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
@@ -60,42 +69,6 @@ class QuestionDelete(LoginRequiredMixin, DeleteView):
     success_url = '/questions'
     
 
-# class CommentCreate(LoginRequiredMixin, CreateView):
-#     model = Comment
-#     fields = ['content', '']
-
-#     def form_valid(self, form):
-#         question = get_object_or_404(Question, pk=self.kwargs['question_id'])
-#         form.instance.author = self.request.user
-#         form.instance.question = question
-#         return super().form_valid(form)
-
-#     def get_success_url(self):
-#         return reverse('question_detail', kwargs={'question_id': self.kwargs['question_id']})
-
-# class CommentUpdate(LoginRequiredMixin, UpdateView):
-#     model = Comment
-#     form_class = CommentForm
-
-# class CommentDelete(LoginRequiredMixin, DeleteView):
-#     model = Comment
-#     template_name = 'comment/comment_confirm_delete.html'
-
-#     def get_success_url(self):
-#         return reverse('question_detail', kwargs={'question_id': self.object.question.id})
-    
-    
-# @login_required
-# def add_comment(request, question_id):
-#   form = CommentForm(request.POST)
-#   if form.is_valid():
-#     new_comment = form.save(commit=False)
-#     new_comment.author = request.user  
-#     new_comment.question_id = question_id
-#     new_comment.save()
-#   return redirect('question_detail', question_id=question_id)
-
-
 @login_required
 def add_comment(request, question_id):
     if request.method == 'POST':
@@ -112,19 +85,12 @@ def add_comment(request, question_id):
 @login_required
 def edit_comment(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
+    form = CommentForm(instance=comment)
     if request.user == comment.author:
-        if request.method == 'POST':
-            form = CommentForm(request.POST, isntance=comment)
-            if form.is_valid():
-                form.save()
-                return redirect('question_detail', question_id=comment.question.id)
-        else:
-            form = CommentForm(instance=comment)
         return render(request, 'main_app/comment_form.html', {'form': form, 'comment': comment})
     else:
         pass
-    
-    
+
     
 @login_required
 def delete_comment(request, comment_id):
@@ -133,7 +99,7 @@ def delete_comment(request, comment_id):
         if request.method == 'POST':
             comment.delete()
             return redirect('question_detail', question_id=comment.question_id)
-        return render(request, 'delete_comment.html', {'comment': comment})
+        return render(request, 'main_app/delete_comment.html', {'comment': comment})
     else:
         return HttpResponseForbidden("You are not allowed to delete this comment.")
    
