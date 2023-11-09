@@ -38,9 +38,15 @@ def question_list(request):
 
 
 
+
 # class MarkdownDetailView(DetailView):
 #     model = MarkedDownExample
 #     template_name = 'questions/question_detail.html'  
+
+class MarkdownDetailView(DetailView):
+    model = MarkedDownExample
+    template_name = 'questions/question_detail.html'  
+
     
 # def question_detail(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
