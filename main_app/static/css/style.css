@@ -1,5 +1,10 @@
 /* Add this to your CSS file */
-/* .code-input {
+@font-face {
+    font-family: 'matrix';
+    src: url(font/matrix.ttf);
+}
+
+.code-input {
     font-family: monospace;
     white-space: pre-wrap;
 } */
@@ -21,6 +26,10 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+h1 {
+    font-family: 'matrix', sans-serif;
 }
   
 main {
