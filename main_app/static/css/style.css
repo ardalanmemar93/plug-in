@@ -1,3 +1,9 @@
+/* Add this to your CSS file */
+.code-input {
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
 body {
     display: flex;
     min-height: 100vh;
