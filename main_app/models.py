@@ -2,21 +2,22 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
-from markdownx.utils import markdownify
-from markdownx.models import MarkdownxField
+# from markdownx.utils import markdownify
+# from markdownx.models import MarkdownxField
 
 
-class MarkedDownExample(models.Model):
-    markdown_content = MarkdownxField()
+# class MarkedDownExample(models.Model):
+#     title = models.CharField(max_length=200, null=True)
+#     markdown_content = MarkdownxField()
 
-    def __str__(self):
-        return "MarkedDownExample"
+#     def __str__(self):
+#         return "MarkedDownExample"
 
 
 class Question(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
-    # markdown_description = MarkdownxField(default='matrix')
+    # markdown_description = MarkdownxField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
