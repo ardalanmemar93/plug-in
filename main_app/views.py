@@ -37,7 +37,6 @@ def question_list(request):
     })
 
 
-
 class MarkdownDetailView(DetailView):
     model = MarkedDownExample
     template_name = 'questions/question_detail.html'  
