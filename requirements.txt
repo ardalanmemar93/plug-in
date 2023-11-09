@@ -10,11 +10,9 @@ django-js-asset==2.1.0
 django-markdownx==4.0.5
 django-on-heroku==1.1.2
 environ==1.0
-
 gunicorn==21.2.0
 importlib-metadata==6.8.0
 jmespath==1.0.1
-
 Markdown==3.5.1
 packaging==23.2
 Pillow==10.1.0
@@ -22,7 +20,6 @@ psycopg2==2.9.9
 psycopg2-binary==2.9.9
 python-dateutil==2.8.2
 s3transfer==0.7.0
-
 sqlparse==0.4.4
 typing_extensions==4.8.0
 urllib3==1.26.18
