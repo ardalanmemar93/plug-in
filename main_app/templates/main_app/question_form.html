@@ -13,12 +13,18 @@
   {% csrf_token %}
   <table>
     {{ form.as_table }}
-    {{ form.media }}
+   
   </table>
 
   <br>
 
   <input type="submit" value="Submit!" class="btn">
 </form>
+
+{% comment %} <div class="container">
+  <h1>{{ markeddownexample.title }}</h1>
+  <p>{{ markeddownexample.formatted_markdown|safe }}</p>
+</div> {% endcomment %}
+
 
 {% endblock %}

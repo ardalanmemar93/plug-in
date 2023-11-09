@@ -3,10 +3,21 @@ from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+# from markdownx.utils import markdownify
+# from markdownx.models import MarkdownxField
+
+
+# class MarkedDownExample(models.Model):
+#     markdown_content = MarkdownxField()
+
+#     def __str__(self):
+#         return "MarkedDownExample"
+
 
 class Question(models.Model):
     title = models.CharField(max_length=200)
-    content = RichTextField()
+    content = models.TextField()
+    # markdown_description = MarkdownxField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -15,6 +26,14 @@ class Question(models.Model):
     
     def get_absolute_url(self):
         return reverse("question_detail", kwargs={"question_id": self.id})
+    
+    # @property
+    # def formatted_markdown(self):
+    #     return markdownify(self.markdown_description)
+    # def get_absolute_url(self):
+    #     return reverse('markdown-detail', kwargs={'pk': self.pk})
+    # def __str__(self):
+    #     return self.title
     
 
 class Comment(models.Model):

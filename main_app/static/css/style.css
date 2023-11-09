@@ -1,13 +1,35 @@
 /* Add this to your CSS file */
+@font-face {
+    font-family: 'matrix';
+    src: url(font/matrix.ttf);
+}
+
 .code-input {
     font-family: monospace;
     white-space: pre-wrap;
-}
+} */
+
+
+pre {
+    background: #2e2f2f;
+    border-radius: 5px;
+    padding: 10px;
+    }
+ img{
+     width: 1000px;
+     padding: 10px;
+    }
+
+
 
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+}
+
+h1 {
+    font-family: 'matrix', sans-serif;
 }
   
 main {
