@@ -11,8 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseForbidden
 
 
-from .models import Question, Comment, Photo 
-from .forms import QuestionForm, CommentForm
+from .models import Question, Comment, Photo, MarkedDownExample 
+from .forms import QuestionForm, CommentForm, MarkedDownExampleForm
 
 # Create your views here.
 
@@ -37,70 +37,70 @@ def question_list(request):
 
 
 
-# class MarkdownDetailView(DetailView):
-#     model = MarkedDownExample
-#     template_name = 'questions/question_detail.html'  
-
-# @login_required
-# def question_detail(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     comments = Comment.objects.filter(question=question)
-
-#     # Fetch the MarkedDownExample instance separately
-#     try:
-#         markdown_example = MarkedDownExample.objects.get(question=question)
-#         # Convert Markdown content to HTML using markdownx.utils.markdownify
-#         markdown_html = markdownify(markdown_example.content)
-#     except MarkedDownExample.DoesNotExist:
-#         markdown_example = None
-#         markdown_html = None
-
-#     return render(request, 'questions/question_detail.html', {
-#         'question': question,
-#         'comments': comments,
-#         'comment_form': CommentForm(),
-#         'markdown_example': markdown_example,
-#         'markdown_html': markdown_html,
-#     })
-
-
-
-
+class MarkdownDetailView(DetailView):
+    model = MarkedDownExample
+    template_name = 'questions/question_detail.html'  
 
 @login_required
 def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     comments = Comment.objects.filter(question=question)
-    
-    if request.method == 'POST':
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            if 'comment_id' in request.POST:  # Check if 'comment_id' is in the POST data
-                # This means it's an edit
-                comment_id = request.POST['comment_id']
-                existing_comment = get_object_or_404(Comment, pk=comment_id)
-                if existing_comment.author == request.user:
-                    # Check if the user is the author of the existing comment
-                    existing_comment.content = comment_form.cleaned_data['content']
-                    existing_comment.save()
-            else:
-                new_comment = comment_form.save(commit=False)
-                new_comment.author = request.user
-                new_comment.question = question
-                new_comment.save()
-            return redirect('question_detail', question_id=question.id)
-    else:
-        comment_form = CommentForm()
 
+    # Fetch the MarkedDownExample instance separately
+    try:
+        markdown_example = MarkedDownExample.objects.get(question=question)
+        # Convert Markdown content to HTML using markdownx.utils.markdownify
+        markdown_html = markdownify(markdown_example.content)
+    except MarkedDownExample.DoesNotExist:
+        markdown_example = None
+        markdown_html = None
 
-
-
-    
     return render(request, 'questions/question_detail.html', {
         'question': question,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': CommentForm(),
+        'markdown_example': markdown_example,
+        'markdown_html': markdown_html,
     })
+
+
+
+
+
+# @login_required
+# def question_detail(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     comments = Comment.objects.filter(question=question)
+    
+#     if request.method == 'POST':
+#         comment_form = CommentForm(request.POST)
+#         if comment_form.is_valid():
+#             if 'comment_id' in request.POST:  # Check if 'comment_id' is in the POST data
+#                 # This means it's an edit
+#                 comment_id = request.POST['comment_id']
+#                 existing_comment = get_object_or_404(Comment, pk=comment_id)
+#                 if existing_comment.author == request.user:
+#                     # Check if the user is the author of the existing comment
+#                     existing_comment.content = comment_form.cleaned_data['content']
+#                     existing_comment.save()
+#             else:
+#                 new_comment = comment_form.save(commit=False)
+#                 new_comment.author = request.user
+#                 new_comment.question = question
+#                 new_comment.save()
+#             return redirect('question_detail', question_id=question.id)
+#     else:
+#         comment_form = CommentForm()
+
+
+
+
+    
+#     return render(request, 'questions/question_detail.html', {
+#         'question': question,
+#         'comments': comments,
+#         'comment_form': comment_form
+#     })
 
 
 

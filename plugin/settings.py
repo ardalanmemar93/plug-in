@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'markdownx',
+    'markdownx',
     # 'ckeditor',
     # 'ckeditor_uploader',
 ]
@@ -168,9 +168,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CKEDITOR_UPLOAD_PATH = "uploads/"
 # CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'
 
-# MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'
 
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Other settings above
 # Configure Django App for Heroku.
