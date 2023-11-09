@@ -1,6 +1,5 @@
 from django import forms
-# from ckeditor.widgets import CKEditorWidget
-# from ckeditor.fields import RichTextField
+
 from .models import Question, Comment
 from .models import MarkedDownExample
 
@@ -11,12 +10,9 @@ class MarkedDownExampleForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     class Meta:
-        # code = RichTextField()
         model = Question
         fields = ['title', 'content']
-        # widgets = {
-        #     'content': CKEditorWidget(),
-        # }
+        
         model = MarkedDownExample
         fields = '__all__'
 
