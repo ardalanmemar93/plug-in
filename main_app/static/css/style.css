@@ -1,8 +1,21 @@
 /* Add this to your CSS file */
-.code-input {
+/* .code-input {
     font-family: monospace;
     white-space: pre-wrap;
-}
+} */
+
+
+pre {
+    background: #2e2f2f;
+    border-radius: 5px;
+    padding: 10px;
+    }
+ img{
+     width: 1000px;
+     padding: 10px;
+    }
+
+
 
 body {
     display: flex;

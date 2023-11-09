@@ -10,7 +10,8 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseForbidden
 
-from .models import Question, Comment, Photo
+
+from .models import Question, Comment, Photo 
 from .forms import QuestionForm, CommentForm
 
 # Create your views here.
@@ -35,7 +36,38 @@ def question_list(request):
     })
 
 
+
+# class MarkdownDetailView(DetailView):
+#     model = MarkedDownExample
+#     template_name = 'questions/question_detail.html'  
+
 # @login_required
+# def question_detail(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     comments = Comment.objects.filter(question=question)
+
+#     # Fetch the MarkedDownExample instance separately
+#     try:
+#         markdown_example = MarkedDownExample.objects.get(question=question)
+#         # Convert Markdown content to HTML using markdownx.utils.markdownify
+#         markdown_html = markdownify(markdown_example.content)
+#     except MarkedDownExample.DoesNotExist:
+#         markdown_example = None
+#         markdown_html = None
+
+#     return render(request, 'questions/question_detail.html', {
+#         'question': question,
+#         'comments': comments,
+#         'comment_form': CommentForm(),
+#         'markdown_example': markdown_example,
+#         'markdown_html': markdown_html,
+#     })
+
+
+
+
+
+@login_required
 def question_detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     comments = Comment.objects.filter(question=question)
@@ -59,6 +91,10 @@ def question_detail(request, question_id):
             return redirect('question_detail', question_id=question.id)
     else:
         comment_form = CommentForm()
+
+
+
+
     
     return render(request, 'questions/question_detail.html', {
         'question': question,
@@ -131,27 +167,6 @@ def delete_comment(request, comment_id):
     else:
         return HttpResponseForbidden("You are not allowed to delete this comment.")
    
-# @login_required
-# def add_photo(request, question_id):
-#     # photo-file will be the "name" attribute on the <input type="file">
-#     photo_file = request.FILES.get('photo-file', None)
-#     if photo_file:
-#         s3 = boto3.client('s3')
-#         # need a unique "key" for S3 / needs image file extension too
-#         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-#         # just in case something goes wrong
-#         try:
-#             bucket = os.environ['S3_BUCKET']
-#             s3.upload_fileobj(photo_file, bucket, key)
-#             # build the full url string
-#             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
-#             # we can assign to question_id or question (if you have a question object)
-#             Photo.objects.create(url=url, question_id=question_id)
-#             print('You wanted to see this?')
-#         except Exception as e:
-#             print('An error occurred uploading file to S3')
-#             print(e)
-#     return redirect('detail', question_id=question_id)
 
 
 @login_required
