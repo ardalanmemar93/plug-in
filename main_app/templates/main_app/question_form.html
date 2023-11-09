@@ -8,15 +8,16 @@
   <h1>Add Question</h1>
 {% endif %}
 
-
 <form action="" method="POST">
 
   {% csrf_token %}
   <table>
-   
     {{ form.as_table }}
+    {{ form.media }}
   </table>
-</br>
+
+  <br>
+
   <input type="submit" value="Submit!" class="btn">
 </form>
 
