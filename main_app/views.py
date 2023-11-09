@@ -131,6 +131,29 @@ def delete_comment(request, comment_id):
     else:
         return HttpResponseForbidden("You are not allowed to delete this comment.")
    
+# @login_required
+# def add_photo(request, question_id):
+#     # photo-file will be the "name" attribute on the <input type="file">
+#     photo_file = request.FILES.get('photo-file', None)
+#     if photo_file:
+#         s3 = boto3.client('s3')
+#         # need a unique "key" for S3 / needs image file extension too
+#         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+#         # just in case something goes wrong
+#         try:
+#             bucket = os.environ['S3_BUCKET']
+#             s3.upload_fileobj(photo_file, bucket, key)
+#             # build the full url string
+#             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+#             # we can assign to question_id or question (if you have a question object)
+#             Photo.objects.create(url=url, question_id=question_id)
+#             print('You wanted to see this?')
+#         except Exception as e:
+#             print('An error occurred uploading file to S3')
+#             print(e)
+#     return redirect('detail', question_id=question_id)
+
+
 @login_required
 def add_photo(request, question_id):
     photo_file = request.FILES.get('photo_file', None)
@@ -139,13 +162,24 @@ def add_photo(request, question_id):
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         try:
             bucket = os.environ['S3_BUCKET']
+            print(f"Uploading file to S3. Bucket: {bucket}, Key: {key}")
+            # Upload the file to S3
             s3.upload_fileobj(photo_file, bucket, key)
+            print("File uploaded successfully to S3")
+            # Construct the URL
             url = f"{os.environ['S3_BASE_URL']}{bucket}/{key}"
+            print(f"Generated URL: {url}")
+            # Create a Photo object
             Photo.objects.create(url=url, question_id=question_id)
+            print("Photo object created successfully")
         except Exception as e:
             print('An error occurred uploading a file to S3')
             print(e)
+    else:
+        print("No photo file provided in the request")
+    # Redirect to question detail page
     return redirect('question_detail', question_id=question_id)
+
 
 def signup(request):
     error_message = ''
