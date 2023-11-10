@@ -43,30 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'markdownx',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
 ]
-
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'Custom',
-#         'toolbar_Custom': [
-#             ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-#             ['Link', 'Unlink', 'Anchor'],
-#             ['Image', 'Flash', 'Table', 'HorizontalRule'],
-#             ['TextColor', 'BGColor'],
-#             ['Smiley', 'SpecialChar'],
-#             ['Source'],
-#             ['Maximize'],
-#             ['CodeSnippet'],  
-#         ],
-#         'width': 800,
-#         'height': 300,
-#         'tabSpaces': 4,
-#     },
-# }
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -156,9 +133,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 LOGIN_REDIRECT_URL = '/questions/'
 LOGOUT_REDIRECT_URL = '/'
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -166,12 +146,7 @@ LOGOUT_REDIRECT_URL = '/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# CKEDITOR_UPLOAD_PATH = "uploads/"
-# CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js'
 
-# MEDIA_URL = '/media/'
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Other settings above
 # Configure Django App for Heroku.

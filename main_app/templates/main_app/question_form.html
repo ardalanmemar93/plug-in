@@ -1,30 +1,25 @@
 {% extends 'base.html' %}
-
 {% block content %}
-
 {% if object %}
   <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
 {% else %}
   <h1>Add Question</h1>
 {% endif %}
-
 <form action="" method="POST">
-
   {% csrf_token %}
   <table>
     {{ form.as_table }}
-   
   </table>
-
   <br>
-
-  <input type="submit" value="Submit!" class="btn">
+  <!-- Replace the input with the Tailwind CSS button -->
+  <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
+    Save changes
+  </button>
 </form>
-
-{% comment %} <div class="container">
+{% comment %}
+<div class="container">
   <h1>{{ markeddownexample.title }}</h1>
   <p>{{ markeddownexample.formatted_markdown|safe }}</p>
-</div> {% endcomment %}
-
-
+</div>
+{% endcomment %}
 {% endblock %}

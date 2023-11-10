@@ -9,44 +9,38 @@
     <title>Plug-In</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
     <link
       rel="stylesheet"
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </head>
-  <body>
-    <header class="navbar-fixed">
-      <nav>
-        <div class="nav-wrapper">
-          <ul>
-            <li>
-              <a href="{% url 'home' %}" class="left brand-logo"
-                >&nbsp;&nbsp;Plug-In</a
-              >
-            </li>
-          </ul>
-          <ul class="right">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'question_create' %}">Create a Question</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            {% endif %}
-          </ul>
-        </div>
+  <body class="font-sans">
+    <header class="fixed top-0 w-full bg-blue-500">
+      <nav class="container mx-auto flex justify-between items-center p-4">
+        <a href="{% url 'home' %}" class="text-white text-xl font-bold">Plug-In</a>
+
+        <ul class="flex space-x-4">
+          <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
+          <li><a href="{% url 'about' %}" class="text-white">About</a></li>
+          <li><a href="{% url 'question_create' %}" class="text-white">Create a Question</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'profile' %}" class="text-white">Profile</a></li>
+          <li><a href="{% url 'logout' %}" class="text-white">Log Out</a></li>
+          {% else %}
+          <li><a href="{% url 'signup' %}" class="text-white">Sign Up</a></li>
+          <li><a href="{% url 'login' %}" class="text-white">Log In</a></li>
+          {% endif %}
+        </ul>
       </nav>
     </header>
-    <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer">
-      <div class="right">
+    
+    <main class="container mx-auto my-8">{% block content %} {% endblock %}</main>
+
+    <footer class="bg-gray-200 text-gray-700 py-4">
+      <div class="container mx-auto text-right">
         All Rights Reserved, &copy; 2023 Plug-In &nbsp;
       </div>
     </footer>
