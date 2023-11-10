@@ -9,9 +9,6 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseForbidden
-# from markdownx.utils import markdownify
-
-
 from .models import Question, Comment, Photo
 from .forms import QuestionForm, CommentForm
 
@@ -36,78 +33,6 @@ def question_list(request):
         'questions': questions
     })
 
-
-
-
-# class MarkdownDetailView(DetailView):
-#     model = MarkedDownExample
-#     template_name = 'questions/question_detail.html'  
-
-class MarkdownDetailView(DetailView):
-    model = MarkedDownExample
-    template_name = 'questions/question_detail.html'  
-
-    
-# def question_detail(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     comments = Comment.objects.filter(question=question)
-#     # Fetch the MarkedDownExample instance separately
-#     try:
-#         # markdown_example = MarkedDownExample.objects.get(question=question)
-#         # Convert Markdown content to HTML using markdownx.utils.markdownify
-#         markdown_html = markdownify(question.content)
-#     except Exception as e:
-#         print(e)
-#     if request.method == 'POST':
-#         comment_form = CommentForm(request.POST)
-#         if comment_form.is_valid():
-#             if 'comment_id' in request.POST:
-#                 comment_id = request.POST['comment_id']
-#                 existing_comment = get_object_or_404(Comment, pk=comment_id)
-#                 if existing_comment.author == request.user:
-#                     existing_comment.content = comment_form.cleaned_data['content']
-#                     existing_comment.save()
-#             else:
-#                 new_comment = comment_form.save(commit=False)
-#                 new_comment.author = request.user
-#                 new_comment.question = question
-#                 new_comment.save()
-#             return redirect('question_detail', question_id=question.id)
-#     else:
-#         comment_form = CommentForm()
-#     return render(request, 'questions/question_detail.html', {
-#         'question': question,
-#         'comments': comments,
-#         'comment_form': comment_form,
-#         # 'markdown_example': markdown_example,
-#         # 'markdown_html': markdown_html,
-#     })
-    
-    
-    
-
-# @login_required
-# def question_detail(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     comments = Comment.objects.filter(question=question)
-
-#     # Fetch the MarkedDownExample instance separately
-#     try:
-#         # markdown_example = MarkedDownExample.objects.get(question=question)
-#         # Convert Markdown content to HTML using markdownx.utils.markdownify
-#         markdown_html = markdownify(question.content)
-#         print(markdown_html)
-#     except Exception as e:
-#         print(e)
-       
-
-#     return render(request, 'questions/question_detail.html', {
-#         'question': question,
-#         'comments': comments,
-#         'comment_form': CommentForm(),
-#         # 'markdown_example': markdown_example,
-#         # 'markdown_html': markdown_html,
-#     })
 
 
 
