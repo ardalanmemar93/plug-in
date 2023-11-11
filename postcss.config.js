@@ -3,5 +3,12 @@ module.exports = {
       tailwindcss: {},
       autoprefixer: {},
     },
+    theme: {
+      extend: {
+        fontFamily: {
+          display: 'matrix, sans-serif'
+        }
+      }
+    }
   };
   
