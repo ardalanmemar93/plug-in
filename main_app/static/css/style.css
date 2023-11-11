@@ -6,14 +6,13 @@
 
 @font-face {
     font-family: 'matrix';
-    src: url(font/matrix.ttf);
+    src: url('/css/font/matrix.ttf');
 }
 
 /* .code-input {
     font-family: monospace;
     white-space: pre-wrap;
 } */
-
 
 pre {
     background: #2e2f2f;
@@ -24,8 +23,6 @@ pre {
      width: 1000px;
      padding: 10px;
     }
-
-
 
 body {
     display: flex;
