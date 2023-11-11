@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 
-<h1>Posts</h1>
+<h1 class="text-9xl text-left mt-20">Posts</h1>
 
 {% for question in questions %}
+    <div class="card relative flex items-center justify-center">
+        <img src="{% static 'img/folder-icon.png' %}" alt="Folder Icon" class="w-13 h-13" />
 
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">{{ question.title }}</span>
-        <p>Content: {{ question.content|linebreaks }}</p>
-        <p>Created: {{ question.created_at }}</p>
-      </div>
-      <div class="card-action">
-        <a href="{% url 'question_detail' question.id %}" class="btn">Details</a>
-      </div>
+        <div class="absolute text-black text-center">
+            <span class="block card-title mt-2">{{ question.title }}</span>
+            <p class="block mt-2">Created: {{ question.created_at }}</p>
+        </div>
+
+        <div class="card-action">
+            <a href="{% url 'question_detail' question.id %}" class="btn">Details</a>
+        </div>
     </div>
-
 {% endfor %}
 
 {% endblock %}

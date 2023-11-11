@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Sign Up</h1>
+<h1 class="text-9xl text-center mt-20">Sign Up</h1>
 
 <p class="red-text">{{ error_message }}</p>
 
-<form method="POST" action="{% url 'signup' %}">
+<form method="POST" action="{% url 'signup' %}" class="max-w-sm mx-auto mt-8">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Log In</button>
-  </form>
+    
+    <!-- Apply Tailwind CSS classes to the entire form -->
+    <div class="mb-4">
+        {{ form.as_p }}
+    </div>
+
+    <button type="submit" class="w-full border-l-4 border-r-4 border-green-900 hover:bg-green-900 text-white font-extrabold py-2 px-4 rounded shadow-lg shadow-slate-950">
+        Sign Up
+    </button>
+</form>
 
 {% endblock %}

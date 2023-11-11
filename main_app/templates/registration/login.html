@@ -1,14 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
+<style>
+  .required::after {
+    content: '*';
+    margin-left: 0.5rem;
+    color: red;
+  }
 
-<!-- Add the login form -->
-<form method="POST" action="{% url 'login' %}">
+  .error-message {
+    margin-top: 0.5rem;
+    color: #e53e3e; /* Tailwind equivalent for text-pink-600 */
+    font-size: 0.875rem; /* Tailwind equivalent for text-sm */
+    display: none;
+  }
+
+  .error-input:focus + .error-message {
+    display: block;
+  }
+</style>
+
+<h1 class="text-9xl text-center mt-20">Log In</h1>
+
+<form method="POST" action="{% url 'login' %}" class="max-w-sm mx-auto mt-8">
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="hidden" name="next" value="{{ next }}">
-  <button type="submit" class="btn">Log In</button>
+
+  <!-- Apply Tailwind CSS classes to the form elements -->
+  <div class="mb-4">
+    <label class="block">
+      <span class="block text-sm font-display text-slate-700 required">
+        Username
+      </span>
+      <input type="text" name="username" class="peer form-input border border-slate-300 p-2 rounded-md focus:outline-none focus:border-green-600 focus:ring focus:ring-green-600 error-input" />
+      <p class="error-message">Please provide a valid username.</p>
+    </label>
+  </div>
+
+  <div class="mb-4">
+    <label class="block">
+      <span class="block text-sm font-medium text-slate-700 required">
+        Password
+      </span>
+      <input type="password" name="password" class="peer form-input border border-slate-300 p-2 rounded-md focus:outline-none focus:border-green-600 focus:ring focus:ring-green-600 error-input" />
+      <p class="error-message">Please provide a valid password.</p>
+    </label>
+  </div>
+
+  <!-- Apply Tailwind CSS classes to the submit button -->
+  <button type="submit" class="w-full border-l-4 border-r-4 border-green-900 hover:bg-green-900 text-white font-extrabold py-2 px-4 rounded shadow-lg shadow-slate-950">
+    Log In
+  </button>
 </form>
 
 {% endblock %}

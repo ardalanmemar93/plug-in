@@ -17,29 +17,45 @@
       href="{% static 'css/style.css' %}"
     />
   </head>
-  <body class="font-sans">
-    <header class="fixed top-0 w-full bg-blue-500">
+  <body class="font-sans bg-green-400 flex flex-col min-h-screen">
+    <header class="fixed top-0 w-full bg-black">
       <nav class="container mx-auto flex justify-between items-center p-4">
-        <a href="{% url 'home' %}" class="text-white text-xl font-bold">Plug-In</a>
-
-        <ul class="flex space-x-4">
-          <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
-          <li><a href="{% url 'about' %}" class="text-white">About</a></li>
-          <li><a href="{% url 'question_create' %}" class="text-white">Create a Question</a></li>
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'profile' %}" class="text-white">Profile</a></li>
-          <li><a href="{% url 'logout' %}" class="text-white">Log Out</a></li>
-          {% else %}
-          <li><a href="{% url 'signup' %}" class="text-white">Sign Up</a></li>
-          <li><a href="{% url 'login' %}" class="text-white">Log In</a></li>
-          {% endif %}
-        </ul>
+        <div class="relative">
+          <summary onclick="toggleDropdown()" class="text-white text-xl font-bold hover:text-green-600 cursor-pointer">
+            Plug-In
+          </summary>
+          <ul id="dropdown" class="absolute left-0 opacity-0 invisible mt-2 space-y-2 bg-black text-white p-2 rounded-md shadow-lg transition-opacity duration-300">
+            <li><a href="{% url 'home' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Home</a></li>
+            <li><a href="{% url 'about' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">About</a></li>
+            <li><a href="{% url 'question_create' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Create a Question</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="{% url 'profile' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Profile</a></li>
+              <li><a href="{% url 'logout' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Log Out</a></li>
+            {% else %}
+              <li><a href="{% url 'signup' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Sign Up</a></li>
+              <li><a href="{% url 'login' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Log In</a></li>
+            {% endif %}
+          </ul>
+        </div>
+        
       </nav>
+    
+      <script>
+        function toggleDropdown() {
+          var dropdown = document.getElementById("dropdown");
+          dropdown.classList.toggle("opacity-0");
+          dropdown.classList.toggle("invisible");
+        }
+      </script>
     </header>
     
-    <main class="container mx-auto my-8">{% block content %} {% endblock %}</main>
+    
+    
+    
+    
+    <main class="container mx-auto my-8 flex-grow">{% block content %} {% endblock %}</main>
 
-    <footer class="bg-gray-200 text-gray-700 py-4">
+    <footer class="bg-gray-200 text-gray-700 py-4 mt-auto">
       <div class="container mx-auto text-right">
         All Rights Reserved, &copy; 2023 Plug-In &nbsp;
       </div>
