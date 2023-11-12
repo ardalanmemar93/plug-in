@@ -87,8 +87,8 @@
     "yaml": "^2.3.4"
   },
   "scripts": {
-    "start": "tailwindcss build -o static/css/style.css",
-    "build": "NODE_ENV=production tailwindcss build -o static/css/style.css"  },
+    "start": "tailwindcss build -o plugin/main_app/static/css/style.css",
+    "build": "NODE_ENV=production tailwindcss build -o plugin/main_app/static/css/style.css"  },
   "keywords": [],
   "author": "",
   "license": "ISC"
