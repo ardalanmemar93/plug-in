@@ -9,6 +9,10 @@
     src: url('/css/font/matrix.ttf');
 }
 
+* {
+    font-family: 'matrix', sans-serif;
+}
+
 /* .code-input {
     font-family: monospace;
     white-space: pre-wrap;
@@ -41,4 +45,8 @@ main {
 footer.page-footer {
     padding-top: 0;
     text-align: right;
+}
+
+.relative {
+    width: 30em;
 }
