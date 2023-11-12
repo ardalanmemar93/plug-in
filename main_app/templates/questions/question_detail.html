@@ -1,91 +1,83 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Question Details</h1>
+<div class="mt-8"> <!-- Add top margin here -->
+  <h1 class="text-3xl font-semibold mb-4">Question Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ question.title }}</span>
-    <p>Content: {{ question.content|linebreaks }}</p>
-    <p>Author: {{ question.author.username }}</p>
+  <div class="bg-blue-200 p-6 rounded shadow-md mb-6">
+    <h2 class="text-xl font-semibold mb-2">{{ question.title }}</h2>
+    <p class="mb-2">Content: {{ question.content|linebreaks }}</p>
+    <p class="mb-2">Author: {{ question.author.username }}</p>
     <p>Created: {{ question.created_at }}</p>
   </div>
-  <div class="card-action">
-    <a href="{% url 'home' %}" class="btn">Back to Home</a>
+
+  <div class="flex mb-4">
+    <a href="{% url 'home' %}" class="btn btn-blue mr-2">Back to Home</a>
 
     {% if user.is_authenticated and user == question.author %}
-    <a href="{% url 'question_update' question.id %}" class="btn">Edit</a>
-    <a href="{% url 'question_delete' question.id %}" class="btn">Delete</a>
+      <a href="{% url 'question_update' question.id %}" class="btn btn-green mr-2">Edit</a>
+      <a href="{% url 'question_delete' question.id %}" class="btn btn-red">Delete</a>
     {% endif %}
   </div>
-</div>
 
-
-
-
-
-
-
-
-
-
-{% for photo in question.photo_set.all %}
-    <img class="responsive-img card-panel" src="{{photo.url}}" alt="Question Photo">
-{% empty %}
-    <div class="card-panel teal-text center-align">No Photos Uploaded</div>
-{% endfor %}
-<!-- new code below -->
-<form method="post" action="{% url 'add_photo' question.id %}" enctype="multipart/form-data">
-  {% csrf_token %}
-  <!-- Your other form fields here -->
-  <input type="file" name="photo_file">
-  <button type="submit">Upload Photo</button>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="comments-section">
-  <!-- Check if the user is authenticated before showing the comment form -->
-  {% if user.is_authenticated %}
-    <h3>Add a Comment</h3>
-
-    <!-- Comment form -->
-    <form method="post" action="{% url 'comment_create' question_id=question.id %}">
-      {% csrf_token %}
-      {{ comment_form.as_p }}
-      <input type="submit" value="Add Comment" class="btn">
-    </form>
-  {% else %}
-    <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
-  {% endif %}
-</div>
-
-<!-- Display existing comments -->
-<h2>Comments</h2>
-<ul>
-  {% for comment in comments %}
-    <li>
-      <strong>{{ comment.author.username }}</strong>: {{ comment.content }}
-      
-      <!-- Only show Edit and Delete buttons to the comment's author -->
-      {% if user.is_authenticated and user == comment.author %}
-        <a href="{% url 'comment_edit' comment.id %}" class="btn">Edit</a>
-        <a href="{% url 'comment_delete' comment.id %}" class="btn">Delete</a>
-      {% endif %}
-    </li>
+  {% for photo in question.photo_set.all %}
+    <div class="w-full md:w-1/2 p-4">
+      <div class="bg-blue-200 p-4 rounded mb-4">
+        <img class="w-full rounded" src="{{photo.url}}" alt="Question Photo">
+      </div>
+    </div>
+  {% empty %}
+    <div class="bg-blue-200 p-4 rounded mb-4">No Photos Uploaded</div>
   {% endfor %}
-</ul>
+
+  <!-- new code below -->
+  <form method="post" action="{% url 'add_photo' question.id %}" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    <!-- Your other form fields here -->
+    <label for="photo_file" class="btn btn-green">
+      <input type="file" name="photo_file" id="photo_file" class="hidden">
+      Upload Photo
+    </label>
+    <button type="submit" class="btn" style="background-color: #007bff; color: #fff; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem;">Submit</button>
+  </form>
+
+  <div class="comments-section mb-8">
+    <!-- Check if the user is authenticated before showing the comment form -->
+    {% if user.is_authenticated %}
+      <div class="bg-blue-200 p-6 rounded mb-4">
+        <h3 class="text-lg font-semibold mb-2">Add a Comment</h3>
+
+        <!-- Comment form -->
+        <form method="post" action="{% url 'comment_create' question_id=question.id %}" class="mb-4">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit" class="btn btn-blue" style="background-color: #007bff; color: #fff; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem;">Add Comment</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="mb-4">Please <a href="{% url 'login' %}" class="text-blue-500">log in</a> to add a comment.</p>
+    {% endif %}
+
+    <!-- Display existing comments in cards -->
+    <h2 class="text-xl font-semibold mb-2">Comments</h2>
+    {% for comment in comments %}
+      <div class="w-full md:w-1/2 p-4"> <!-- Make comment cards half the width -->
+        <div class="bg-blue-200 p-4 rounded mb-4">
+          <div class="flex justify-between items-center">
+            <strong>{{ comment.author.username }}</strong>
+            <!-- Only show Edit and Delete buttons to the comment's author -->
+            {% if user.is_authenticated and user == comment.author %}
+              <div>
+                <a href="{% url 'comment_edit' comment.id %}" class="btn btn-green mr-2" style="background-color: #28a745; color: #fff; border-color: #28a745; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem;">Edit</a>
+                <a href="{% url 'comment_delete' comment.id %}" class="btn btn-red" style="background-color: #dc3545; color: #fff; border-color: #dc3545; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem;">Delete</a>
+              </div>
+            {% endif %}
+          </div>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
