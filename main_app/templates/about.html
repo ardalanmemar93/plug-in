@@ -2,55 +2,60 @@
 
 {% block content %}
   <div style="position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;">
-    <!-- Heading in Foreground -->
-    <div class="container" style="z-index: 1; background-color: white; width: 500px; height: 200px; border-radius: 25px;">
-      <h1 style="position: relative; color: red; text-align: center;">About</h1>
+    <!-- About Card -->
+    <div class="container p-8 mx-auto mb-8" style="z-index: 1; background-color: white; width: 700px; border-radius: 25px;">
+      <h1 class="text-3xl font-semibold mb-4 text-center" style="color: red;">About</h1>
+      <p class="text-lg text-gray-800">
+        Plug-In is a dynamic hub tailored for coding enthusiasts, providing a platform to engage in discussions, share knowledge, and collaborate on coding-related questions. Developed using Django and Python, this web application empowers users to post questions, receive valuable insights through comments, and actively participate in a vibrant coding community.
+
+        As an evolving project, Plug-In is committed to continuous improvement and expansion. Future updates will introduce new features, enhance user experience, and broaden the scope of the application. Whether you're a seasoned developer or a coding enthusiast, Plug-In offers a space to connect, learn, and contribute to the ever-growing world of coding. Stay tuned for exciting developments and opportunities within the Plug-In community.
+      </p>
+      <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4">Go to Home Page</a>
     </div>
-    
 
     <!-- HTML Canvas Element in Background -->
     <canvas id="canv" style="border: 1px solid #ddd; position: absolute; top: 27px; left: 0; width: 100%; height: 100%;"></canvas>
 
-       <!-- JavaScript for Matrix Animation -->
-   <script>
-    const canvas = document.getElementById('canv');
-    const ctx = canvas.getContext('2d');
+    <!-- JavaScript for Matrix Animation -->
+    <script>
+      const canvas = document.getElementById('canv');
+      const ctx = canvas.getContext('2d');
 
-    function updateCanvasSize() {
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
+      function updateCanvasSize() {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
-      canvas.width = windowWidth;
-      canvas.height = windowHeight;
+        canvas.width = windowWidth;
+        canvas.height = windowHeight;
 
-      ctx.fillStyle = '#000';
-      ctx.fillRect(0, 0, windowWidth, windowHeight);
-    }
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, windowWidth, windowHeight);
+      }
 
-    updateCanvasSize(); // Call once to set initial size
+      updateCanvasSize(); // Call once to set initial size
 
-    window.addEventListener('resize', updateCanvasSize);
+      window.addEventListener('resize', updateCanvasSize);
 
-    const cols = Math.floor(canvas.width / 20) + 1;
-    const ypos = Array(cols).fill(0);
+      const cols = Math.floor(canvas.width / 20) + 1;
+      const ypos = Array(cols).fill(0);
 
-    function matrix () {
-      ctx.fillStyle = '#0001';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      function matrix() {
+        ctx.fillStyle = '#0001';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = '#0f0';
-      ctx.font = '15pt monospace';
+        ctx.fillStyle = '#0f0';
+        ctx.font = '15pt monospace';
 
-      ypos.forEach((y, ind) => {
-        const text = String.fromCharCode(Math.random() * 128);
-        const x = ind * 20;
-        ctx.fillText(text, x, y);
-        if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
-        else ypos[ind] = y + 20;
-      });
-    }
+        ypos.forEach((y, ind) => {
+          const text = String.fromCharCode(Math.random() * 128);
+          const x = ind * 20;
+          ctx.fillText(text, x, y);
+          if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+          else ypos[ind] = y + 20;
+        });
+      }
 
-    setInterval(matrix, 50);
-  </script>
+      setInterval(matrix, 50);
+    </script>
   </div>
 {% endblock %}
