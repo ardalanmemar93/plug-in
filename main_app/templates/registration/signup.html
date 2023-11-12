@@ -1,21 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1 class="text-9xl text-center mt-20">Sign Up</h1>
+<style>
+  .card {
+    background-color: lightblue;
+    border-width: 1px;
+    border-radius: 0.375rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
 
-<p class="red-text">{{ error_message }}</p>
+  .error-text {
+    color: #e53e3e; /* Tailwind equivalent for text-pink-600 */
+  }
+</style>
 
-<form method="POST" action="{% url 'signup' %}" class="max-w-sm mx-auto mt-8">
-    {% csrf_token %}
-    
-    <!-- Apply Tailwind CSS classes to the entire form -->
-    <div class="mb-4">
+<div class="max-w-md mx-auto mt-20">
+  <div class="card p-6 mb-8">
+    <h1 class="text-3xl font-semibold text-center mb-8">Sign Up</h1>
+
+    <p class="error-text">{{ error_message }}</p>
+
+    <form method="POST" action="{% url 'signup' %}">
+      {% csrf_token %}
+
+      <!-- Apply Tailwind CSS classes to the entire form -->
+      <div class="mb-4">
         {{ form.as_p }}
-    </div>
+      </div>
 
-    <button type="submit" class="w-full border-l-4 border-r-4 border-green-900 hover:bg-green-900 text-white font-extrabold py-2 px-4 rounded shadow-lg shadow-slate-950">
+      <button type="submit" class="w-full bg-blue-500 text-white font-extrabold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300" style="background-color: blue;">
         Sign Up
-    </button>
-</form>
+      </button>
+    </form>
+  </div>
+</div>
 
 {% endblock %}
