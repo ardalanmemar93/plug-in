@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% if object %}
-    <h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-  {% else %}
-    <h1>Edit Comment</h1>
-  {% endif %}
-  <!-- Leaving the action empty makes the form post to the same url used to display it -->
-  <form method="post" action="{% url 'comment_edit' comment.id %}">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <input type="hidden" name="comment_id" value="{{ comment.id }}">
-    <input type="submit" value="Update Comment" class="btn">
-</form>
+  <div class="mt-8 mx-auto"> <!-- Increased top margin to 8 -->
+    {% if object %}
+      <h1 class="text-3xl font-semibold mb-2">Edit <span class="teal-text">{{object.name}}</span></h1>
+    {% else %}
+      <h1 class="text-3xl font-semibold mb-2">Edit Comment</h1>
+    {% endif %}
+    
+    <div class="w-1/2 bg-blue-200 p-6 rounded shadow-md mb-4">
+      <form method="post" action="{% url 'comment_edit' comment.id %}">
+        {% csrf_token %}
+        <div class="mb-4">
+          <!-- You can customize the styling for the form fields here -->
+          {{ form.as_p }}
+        </div>
+        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+        <button type="submit" class="btn btn-blue" style="background-color: navy; color: #fff; border-color: #dc3545; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem;">Update Comment</button>
+      </form>
+    </div>
+  </div>
 {% endblock %}
