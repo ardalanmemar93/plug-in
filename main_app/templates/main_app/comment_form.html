@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="mt-8 mx-auto">
+  <div class="mt-8 mx-auto"> <!-- Increased top margin to 8 -->
     {% if object %}
-      <h1 class="text-3xl font-semibold mb-4">Edit <span class="teal-text">{{object.name}}</span></h1>
+      <h1 class="text-3xl font-semibold mb-2">Edit <span class="teal-text">{{object.name}}</span></h1>
     {% else %}
-      <h1 class="text-3xl font-semibold mb-4">Edit Comment</h1>
+      <h1 class="text-3xl font-semibold mb-2">Edit Comment</h1>
     {% endif %}
     
     <div class="w-1/2 bg-blue-200 p-6 rounded shadow-md mb-4">
