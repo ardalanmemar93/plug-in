@@ -1,31 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-  .required::after {
-    content: '*';
-    margin-left: 0.5rem;
-    color: red;
-  }
-
-  .error-message {
-    margin-top: 0.5rem;
-    color: #e53e3e; /* Tailwind equivalent for text-pink-600 */
-    font-size: 0.875rem; /* Tailwind equivalent for text-sm */
-    display: none;
-  }
-
-  .error-input:focus + .error-message {
-    display: block;
-  }
-</style>
 
 <h1 class="text-9xl text-center mt-20">Log In</h1>
 
 <form method="POST" action="{% url 'login' %}" class="max-w-sm mx-auto mt-8">
   {% csrf_token %}
 
-  <!-- Apply Tailwind CSS classes to the form elements -->
   <div class="mb-4">
     <label class="block">
       <span class="block text-sm font-display text-slate-700 required" style="font-family: 'matrix', sans-serif; font-size: 20px;">
@@ -46,7 +27,6 @@
     </label>
   </div>
 
-  <!-- Apply Tailwind CSS classes to the submit button -->
   <button type="submit" class="w-full bg-blue-500 text-white font-extrabold py-2 px-4 rounded shadow-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300" style="background-color: blue; font-family: 'matrix', sans-serif; font-size: 20px;">
     Log In
   </button>

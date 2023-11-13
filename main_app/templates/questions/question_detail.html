@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="mt-8"> <!-- Add top margin here -->
+<div class="mt-8"> 
   <h1 class="text-3xl font-semibold mb-4">Question Details</h1>
 
   <div class="bg-blue-200 p-6 rounded shadow-md mb-6">
@@ -41,7 +41,6 @@
     <div class="bg-blue-200 p-4 rounded mb-4" style="font-family: 'matrix', sans-serif; font-size: 20px;">No Photos Uploaded</div>
   {% endfor %}
 
-  <!-- new code below -->
   <form method="post" action="{% url 'add_photo' question.id %}" enctype="multipart/form-data" class="mb-4">
     {% csrf_token %}
     <!-- Your other form fields here -->
@@ -53,7 +52,6 @@
   </form>
 
   <div class="comments-section mb-8">
-    <!-- Check if the user is authenticated before showing the comment form -->
     {% if user.is_authenticated %}
       <div class="bg-blue-200 p-6 rounded mb-4">
         <h3 class="text-lg font-semibold mb-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Add a Comment</h3>
@@ -69,7 +67,7 @@
       <p class="mb-4" style="font-family: 'matrix', sans-serif; font-size: 20px;">Please <a href="{% url 'login' %}" class="text-blue-500" style="font-family: 'matrix', sans-serif; font-size: 20px;">log in</a> to add a comment.</p>
     {% endif %}
 
-    <!-- Display existing comments in cards -->
+
     <h2 class="text-xl font-semibold mb-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Comments</h2>
     {% for comment in comments %}
       <div class="w-full md:w-1/2 p-4"> <!-- Make comment cards half the width -->

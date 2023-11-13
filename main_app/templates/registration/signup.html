@@ -1,19 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style>
-  .card {
-    background-color: lightblue;
-    border-width: 1px;
-    border-radius: 0.375rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .error-text {
-    color: #e53e3e; /* Tailwind equivalent for text-pink-600 */
-  }
-</style>
-
 <div class="max-w-md mx-auto mt-20">
   <div class="card p-6 mb-8">
     <h1 class="text-3xl font-semibold text-center mb-8" style="font-family: 'matrix', sans-serif; font-size: 20px;">Sign Up</h1>
@@ -23,7 +10,7 @@
     <form method="POST" action="{% url 'signup' %}">
       {% csrf_token %}
 
-      <!-- Apply Tailwind CSS classes to the entire form -->
+  
       <div class="mb-4">
         {{ form.as_p }}
       </div>
