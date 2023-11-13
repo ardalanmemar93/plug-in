@@ -2,15 +2,16 @@
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Digital_rain_animation_small_letters_clear.gif"/>
 
-<p style="font-family: 'matrix', sans-serif; font-size: 7rem">PlugIn</p>
+<img width="268" alt="Screenshot 2023-11-13 at 12 34 09 AM" src="https://github.com/ardalanmemar93/plug-in/assets/125223778/d5f43207-a82d-4352-8a39-2a933ef642d5">
 
-<p style="font-family: 'matrix', sans-serif; font-size: 2.5rem;">Built By:</p>
 
-<span style="font-family: 'matrix', sans-serif; font-size: 1.5rem">[Ardalan Memar](https://www.linkedin.com/in/ardalan-memar/)</span>
+### Built By:
 
-<span style="font-family: 'matrix', sans-serif; font-size: 1.5rem">[Shane Stanley](https://www.linkedin.com/in/shane-stanley-059127213/)</span>
+**[Ardalan Memar](https://www.linkedin.com/in/ardalan-memar/)**
 
-<span style="font-family: 'matrix', sans-serif; font-size: 1.5rem">[Bryant Gilgan](https://www.linkedin.com/in/bryant-gilgan/)</span>
+**[Shane Stanley](https://www.linkedin.com/in/shane-stanley-059127213/)**
+
+**[Bryant Gilgan](https://www.linkedin.com/in/bryant-gilgan/)**
 
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 
@@ -32,10 +33,13 @@
 
 **_Click the following link to be redirected to the live version of the code!_**
 
-<span style="font-family:'matrix', sans-serif; font-size: 4rem">[PLUGIN](https://plug-in-c323d326881d.herokuapp.com/)</span>
+## [PLUGIN](https://plug-in-c323d326881d.herokuapp.com/)
 
-<p style="font-family: 'matrix', sans-serif; font-size: 1rem;">Welcome to Plug-In: A Dynamic Coding Hub**
-Plug-In is more than just a platform; it's a dynamic hub crafted for coding enthusiasts who are passionate about sharing, learning, and collaborating. At the core of this vibrant community is a web application developed using cutting-edge technologies, providing a seamless experience for users to explore, ask questions, and engage in meaningful discussions.</p>
+### DESCRIPTION: 
+
+**_Welcome to Plug-In: A Dynamic Coding Hub_**
+
+Plug-In is more than just a platform; it's a dynamic hub crafted for coding enthusiasts who are passionate about sharing, learning, and collaborating. At the core of this vibrant community is a web application developed using cutting-edge technologies, providing a seamless experience for users to explore, ask questions, and engage in meaningful discussions.
 
 ## :link: Associated Links:
 
@@ -57,7 +61,7 @@ Click the following link to be redirected to the Pitch Deck to see the overview 
 
 ### 💾 ABOUT PAGE
 
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm51eTQ1M3ljb2xrcHN0YnkxMTloOXR2ZXRwN3c4bWNzbjRxOXBmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EJnsv9Vy51t1KYw85Z/giphy-downsized-large.gif">
+<img width="1423" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm51eTQ1M3ljb2xrcHN0YnkxMTloOXR2ZXRwN3c4bWNzbjRxOXBmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EJnsv9Vy51t1KYw85Z/giphy-downsized-large.gif">
 
 ### 🐇 HOME PAGE
 
