@@ -82,7 +82,7 @@ Click the following link to be redirected to the Pitch Deck to see the overview 
 ## 💻 Technologies Used:
 
 <img width="1423" alt="Screenshot 2023-11-12 at 9 39 46 PM" src="https://github.com/ardalanmemar93/plug-in/assets/125223778/1d9b87bc-67f5-4701-ba0c-b7d23accef17">
-
+</div>
 
 ## Technologies Behind Plug-In:
 ### Django and Python:
@@ -101,7 +101,7 @@ Plug-In is a project in constant evolution. Continuous improvements and updates 
 Whether you're a seasoned developer or a coding enthusiast exploring the world of programming, Plug-In invites you to connect, learn, and contribute. Stay tuned for upcoming developments, opportunities, and a thriving community that shares your passion for coding.
 Plug-In is not just a platform; it's a community-driven space where knowledge is shared, questions are answered, and a shared enthusiasm for coding binds us together. Welcome to Plug-In, your dynamic coding hub!
 
-## Favouurite Function 
+# Favouurite Function 
 Decorator @login_required:
 
 This decorator ensures that only authenticated users can access the view. If a user is not authenticated, they will be redirected to the login page.
@@ -189,4 +189,3 @@ Implementing robust testing procedures and ensuring code quality were ongoing ch
 - [ ] User can favourite comments
 - [ ] Expand on the overall design
 - [ ] Refactor code 
-</div>
