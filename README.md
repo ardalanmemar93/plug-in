@@ -61,7 +61,7 @@ Click the following link to be redirected to the Pitch Deck to see the overview 
 
 ### 💾 ABOUT PAGE
 
-<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm51eTQ1M3ljb2xrcHN0YnkxMTloOXR2ZXRwN3c4bWNzbjRxOXBmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EJnsv9Vy51t1KYw85Z/giphy-downsized-large.gif">
+<img width="1423" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm51eTQ1M3ljb2xrcHN0YnkxMTloOXR2ZXRwN3c4bWNzbjRxOXBmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/EJnsv9Vy51t1KYw85Z/giphy-downsized-large.gif">
 
 ### 🐇 HOME PAGE
 
