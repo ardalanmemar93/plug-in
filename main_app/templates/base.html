@@ -21,10 +21,10 @@
     <header class="fixed top-0 w-full bg-black">
       <nav class="container mx-auto flex justify-between items-center p-4">
         <div class="relative">
-          <summary onclick="toggleDropdown()" class=" text-white text-xl font-bold hover:text-green-600 cursor-pointer">
+          <summary onclick="toggleDropdown()" class=" text-white text-xl font-bold hover:text-green-600 cursor-pointer" style="margin-left: -150px;">
             Plug-In
           </summary>
-          <ul id="dropdown" class="absolute left-0 opacity-0 invisible mt-2 space-y-2 bg-black text-white p-2 rounded-md shadow-lg transition-opacity duration-300">
+          <ul id="dropdown" class="absolute left-0 opacity-0 invisible mt-2 space-y-2 bg-black text-white p-2 rounded-md shadow-lg transition-opacity duration-300" style="margin-left: -150px;">
             <li><a href="{% url 'home' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Home</a></li>
             <li><a href="{% url 'about' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">About</a></li>
             <li><a href="{% url 'question_create' %}" class="block px-4 py-2 font-bold hover:text-green-600 focus:text-green-600 focus:outline-none focus:bg-green-300">Create a Question</a></li>
