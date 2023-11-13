@@ -9,16 +9,28 @@
     <p class="mb-2">Content: {{ question.content|linebreaks }}</p>
     <p class="mb-2">Author: {{ question.author.username }}</p>
     <p>Created: {{ question.created_at }}</p>
-  </div>
+  
 
-  <div class="flex mb-4">
-    <a href="{% url 'home' %}" class="btn btn-blue mr-2">Back to Home</a>
+  {% if user.is_authenticated and user == question.author %}
+    <div class="flex justify-start items-end space-x-4 mb-4">
+      <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4 h-full" style="height: 2.7rem">Go to Home Page</a>
 
-    {% if user.is_authenticated and user == question.author %}
-      <a href="{% url 'question_update' question.id %}" class="btn btn-green mr-2">Edit</a>
-      <a href="{% url 'question_delete' question.id %}" class="btn btn-red">Delete</a>
-    {% endif %}
-  </div>
+      <a href="{% url 'question_update' question.id %}" class="bg-green-500 text-white py-2 px-4 rounded-lg text-lg flex items-center h-full">
+        <span class="mr-2">Edit</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+        </svg>
+      </a>
+
+      <a href="{% url 'question_delete' question.id %}" class="bg-red-500 text-white py-2 px-4 rounded-lg text-lg flex items-center h-full">
+        <span class="mr-2">Delete</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </a>
+    </div>
+  {% endif %}
+</div>
 
   {% for photo in question.photo_set.all %}
     <div class="w-full md:w-1/2 p-4">
