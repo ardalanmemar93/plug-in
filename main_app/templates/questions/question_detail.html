@@ -13,17 +13,16 @@
 
   {% if user.is_authenticated and user == question.author %}
     <div class="flex justify-start items-end space-x-4 mb-4">
-      <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block mt-4 h-full" style="height: 2.7rem">Go to Home Page</a>
-
-      <a href="{% url 'question_update' question.id %}" class="bg-green-500 text-white py-2 px-4 rounded-lg text-lg flex items-center h-full">
-        <span class="mr-2">Edit</span>
+ 
+      <a href="{% url 'question_update' question.id %}" class=" mt-3 bg-green-500 text-white py-2 px-4 rounded-lg text-lg flex items-center h-full">
+        <span class="mr-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Edit</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
         </svg>
       </a>
 
       <a href="{% url 'question_delete' question.id %}" class="bg-red-500 text-white py-2 px-4 rounded-lg text-lg flex items-center h-full">
-        <span class="mr-2">Delete</span>
+        <span class="mr-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Delete</span>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
@@ -39,7 +38,7 @@
       </div>
     </div>
   {% empty %}
-    <div class="bg-blue-200 p-4 rounded mb-4">No Photos Uploaded</div>
+    <div class="bg-blue-200 p-4 rounded mb-4" style="font-family: 'matrix', sans-serif; font-size: 20px;">No Photos Uploaded</div>
   {% endfor %}
 
   <!-- new code below -->
