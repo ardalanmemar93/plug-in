@@ -2,10 +2,11 @@
 {% block content %}
 <div class="flex justify-center items-center h-screen">
   <div class="w-full md:w-2/3 lg:w-1/2 p-8 bg-blue-400 rounded shadow-md">
+    <h1 class="text-3xl font-semibold mb-4 mt-2 text-center" style="font-family: 'matrix', sans-serif; font-size: 50px;">Question</h1>
     {% if object %}
-      <h1 class="text-2xl font-semibold mb-4 mt-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Edit <span class="teal-text" style="font-family: 'matrix', sans-serif; font-size: 20px;">{{ object.name }}</span></h1>
+      <h2 class="text-2xl font-semibold mb-4 mt-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Edit <span class="teal-text" style="font-family: 'matrix', sans-serif; font-size: 20px;">{{ object.name }}</span></h2>
     {% else %}
-      <h1 class="text-2xl font-semibold mb-4 mt-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Add Question</h1>
+      <h2 class="text-2xl font-semibold mb-4 mt-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Add Question</h2>
     {% endif %}
     <form action="" method="POST">
       {% csrf_token %}
@@ -13,7 +14,7 @@
         {{ form.as_table }}
       </table>
       <!-- Replace the input with the Tailwind CSS button -->
-      <button type="submit" class="w-full bg-light-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" style="font-family: 'matrix', sans-serif; font-size: 20px;">
+      <button type="submit" class="w-full bg-light-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded" style="font-family: 'matrix', sans-serif; font-size: 20px; background-color: lightgreen; color: green;">
         Add Question
       </button>
     </form>
