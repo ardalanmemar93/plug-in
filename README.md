@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Digital_rain_animation_small_letters_clear.gif"/>
+<img width="1423" src="https://upload.wikimedia.org/wikipedia/commons/1/17/Digital_rain_animation_small_letters_clear.gif"/>
 
  ###
 <img width="268" alt="Screenshot 2023-11-13 at 12 34 09 AM" src="https://github.com/ardalanmemar93/plug-in/assets/125223778/d5f43207-a82d-4352-8a39-2a933ef642d5">
