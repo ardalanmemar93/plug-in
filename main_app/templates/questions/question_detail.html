@@ -70,11 +70,11 @@
 
     <h2 class="text-xl font-semibold mb-2" style="font-family: 'matrix', sans-serif; font-size: 20px;">Comments</h2>
     {% for comment in comments %}
-      <div class="w-full md:w-1/2 p-4"> <!-- Make comment cards half the width -->
+      <div class="w-full md:w-1/2 p-4"> 
         <div class="bg-blue-200 p-4 rounded mb-4">
           <div class="flex justify-between items-center">
             <strong>{{ comment.author.username }}</strong>
-            <!-- Only show Edit and Delete buttons to the comment's author -->
+            
             {% if user.is_authenticated and user == comment.author %}
               <div>
                 <a href="{% url 'comment_edit' comment.id %}" class="btn btn-green mr-2" style="background-color: #28a745; color: #fff; border-color: #28a745; border-color: #007bff; font-size: 1rem; padding: 0.375rem 0.75rem; border-radius: 0.25rem; font-family: 'matrix', sans-serif; font-size: 20px;">Edit</a>
