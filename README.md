@@ -106,7 +106,7 @@ Plug-In is a project in constant evolution. Continuous improvements and updates 
 Whether you're a seasoned developer or a coding enthusiast exploring the world of programming, Plug-In invites you to connect, learn, and contribute. Stay tuned for upcoming developments, opportunities, and a thriving community that shares your passion for coding.
 Plug-In is not just a platform; it's a community-driven space where knowledge is shared, questions are answered, and a shared enthusiasm for coding binds us together. Welcome to Plug-In, your dynamic coding hub!
 
-# Favouurite Function 
+# Favourite Function 
 Decorator @login_required:
 
 This decorator ensures that only authenticated users can access the view. If a user is not authenticated, they will be redirected to the login page.
